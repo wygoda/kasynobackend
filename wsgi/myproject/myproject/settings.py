@@ -93,6 +93,7 @@ DATABASES = {
         #'NAME': os.path.join(DATA_DIR, 'db.sqlite3'),
 
         'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'kasynobackend',
         'USER': os.environ.get('OPENSHIFT_MYSQL_DB_USERNAME'),
         'PASSWORD': os.environ.get('OPENSHIFT_MYSQL_DB_PASSWORD'),
         'HOST': os.environ.get('OPENSHIFT_MYSQL_DB_HOST'),
