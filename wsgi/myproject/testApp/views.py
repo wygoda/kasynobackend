@@ -1,12 +1,11 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-
+from .models import Question
 
 def index(request):
-    if request.method == 'GET':
-        return HttpResponse("Hello, world. You're at the polls index and you used the GET method. hehe3")
-    if request.method == 'POST':
-        return HttpResponse("Hello, world. You're at the polls index and you used the POST method.")
+    latest_question_list = Question.objects.order_by('-pub_date')[:5]
+    output = ', '.join([p.question_text for p in latest_question_list])
+    return HttpResponse(output)
 
 def detail(request, question_id):
     return HttpResponse("You're looking at question %s." % question_id)
