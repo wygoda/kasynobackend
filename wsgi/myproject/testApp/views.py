@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, Http404
 from .models import Question
 # from django.template import loader
@@ -17,10 +17,7 @@ def index(request):
     return render(request, 'testApp/index.html', context)
 
 def detail(request, question_id):
-    try:
-        question = Question.objects.get(pk=question_id)
-    except Question.DoesNotExist:
-        raise Http404("Question does not exist")
+    question = get_object_or_404(Question, pk=question_id)
     return render(request, 'testApp/detail.html', {'question': question})
 
 def results(request, question_id):
