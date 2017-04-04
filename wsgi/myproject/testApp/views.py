@@ -10,7 +10,7 @@ def index(request):
     context = {
         'latest_question_list': latest_question_list,
     }
-    return HttpResponse(rqst_body)
+    return HttpResponse(request.body)
     #return HttpResponse(template.render(context, request))
 
 def detail(request, question_id):
