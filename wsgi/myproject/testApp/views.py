@@ -10,12 +10,12 @@ def index(request):
     context = {
         'latest_question_list': latest_question_list,
     }
-    out = HttpResponse()
-    for key in request.META:
-        out.write('<b>' + str(key) + '</b>' + ':' + str(request.META[key]) + '<br/>')
-
-    return HttpResponse(out)
-    #return HttpResponse(template.render(context, request))
+    # out = HttpResponse()
+    # for key in request.META:
+    #     out.write('<b>' + str(key) + '</b>' + ':' + str(request.META[key]) + '<br/>')
+    #
+    # return HttpResponse(out)
+    return HttpResponse(template.render(context, request))
 
 def detail(request, question_id):
     return HttpResponse("You're looking at question %s." % question_id)
