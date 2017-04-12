@@ -1,4 +1,4 @@
-from ../models import User
+from ...models import User
 
 def register(request):
     pass
