@@ -13,6 +13,9 @@ def user(request):
     if request.method=='POST' and request.POST.get('password')=='hasl0':
         try:
             function = request.POST.get('function')
+            if function==None:
+                return JsonResponse ({'status':'FAIL','error':'specify a function'})
+
             if function=='register':
                 return userapi.register(request)
 
@@ -24,10 +27,12 @@ def user(request):
 
             if function=='info':
                 return userapi.info(request)
+
+            return JsonResponse ({'status':'FAIL','error':'there\'s no such function'})
         except:
-            return JsonResponse ({'status':'NOT OK'})
+            return JsonResponse ({'status':'FAIL', 'error':'function execution went wrong'})
     else:
-        return HttpResponse('you didn\'t use POST or didn\'t pass validation')
+        return JsonResponse({'status':'FAIL', 'error':'you didn\'t use POST or didn\'t pass validation'})
 
 @csrf_exempt
 def game(request):
