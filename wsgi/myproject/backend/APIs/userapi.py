@@ -3,15 +3,15 @@ from django.http import JsonResponse
 
 def register(request):
     username = request.POST.get('username')
-    notempty = User.objects.filter(username=username)
-    if notempty:
+    exists = User.objects.filter(username=username)
+    if exists:
         return JsonResponse({
         'status':'FAIL',
         'function':'register',
         'error':'username already exists'})
     password = request.POST.get('userPassword')
 
-    if username==None or password==None:
+    if username==None or password==None or username=='' or password=='':
         return JsonResponse({
         'status':'FAIL',
         'function':'register',
