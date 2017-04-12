@@ -1,12 +1,23 @@
 from django.shortcuts import render
-from django.http import HttpResponse, Http404
+from django.http import HttpResponse, Http404, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+from APIs import userapi
 
 @csrf_exempt #those views must accept post requests from external frontends done by the rest of the team, our own validation is required to prevent from csrf attacks
 def user(request):
-    out = HttpResponse()
-    out.write('<b>ok user</b>')
-    return out
+    # out = HttpResponse()
+    # out.write('<b>ok user</b>')
+    # return out
+
+    #TODO: use openshift environment variable instead of hardcoded password
+    if request.method=='POST':# and request.POST.get('password')=='hasl0':
+        try:
+            userapi.register(request)
+            return JsonResponse({'status':'OK'})
+        except:
+            return JsonResponse ({'status':'NOT OK'})
+    else:
+        return HttpResponse('you didn\'t use POST or didn\'t pass validation')
 
 @csrf_exempt
 def game(request):
