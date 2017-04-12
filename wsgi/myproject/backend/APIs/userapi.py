@@ -1,5 +1,6 @@
 from ..models import User
 from django.http import JsonResponse
+from django.core.exceptions import ObjectDoesNotExist
 
 def register(request):
     username = request.POST.get('username')
@@ -52,4 +53,20 @@ def info(request):
     'users':usersdict})
 
 def delete(request):
-    pass
+    userId = request.POST.get('id')
+    if userId==None:
+        return JsonResponse({
+        'status':'FAIL',
+        'function':'delete',
+        'error':'there\'s no such user'})
+    try:
+        u = User.objects.get(pk=userId)
+        u.delete()
+        return JsonResponse({
+        'status':'OK',
+        'function':'delete'})
+    except ObjectDoesNotExist:
+        return JsonResponse({
+        'status':'FAIL',
+        'function':'delete',
+        'error':'there\'s no such user'})
