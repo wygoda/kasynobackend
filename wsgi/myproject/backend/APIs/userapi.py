@@ -37,10 +37,19 @@ def register(request):
     'id':u.id})
 
 def modifyBalance(request):
-    return JsonResponse ({'status':'OK'})
+    return JsonResponse({'status':'OK'})
 
 def authenticate(request):
-    return JsonResponse ({'status':'OK'})
+    return JsonResponse({'status':'OK'})
 
 def info(request):
-    return JsonResponse ({'status':'OK'})
+    usersdict = {}
+    for u in User.objects.all():
+        usersdict[u.id] = str(u)
+    return JsonResponse({
+    'status':'OK',
+    'function':'info',
+    'users':usersdict})
+
+def delete(request):
+    pass

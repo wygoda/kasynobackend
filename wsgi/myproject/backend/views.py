@@ -28,6 +28,9 @@ def user(request):
             if function=='info':
                 return userapi.info(request)
 
+            if function=='delete':
+                return userapi.delete(request)
+
             return JsonResponse ({'status':'FAIL','error':'there\'s no such function'})
         except:
             return JsonResponse ({'status':'FAIL', 'error':'function execution went wrong'})
