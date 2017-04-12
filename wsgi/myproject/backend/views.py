@@ -10,10 +10,20 @@ def user(request):
     # return out
 
     #TODO: use openshift environment variable instead of hardcoded password
-    if request.method=='POST':# and request.POST.get('password')=='hasl0':
+    if request.method=='POST' and request.POST.get('password')=='hasl0':
         try:
-            userapi.register(request)
-            return JsonResponse({'status':'OK'})
+            function = request.POST.get('function')
+            if function=='register':
+                return userapi.register(request)
+
+            if function=='modifyBalance':
+                return userapi.modifyBalance(request)
+
+            if function=='authenticate':
+                return userapi.authenticate(request)
+
+            if function=='info':
+                return userapi.info(request)
         except:
             return JsonResponse ({'status':'NOT OK'})
     else:

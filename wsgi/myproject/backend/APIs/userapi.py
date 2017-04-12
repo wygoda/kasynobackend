@@ -1,13 +1,14 @@
 from ..models import User
+from django.http import JsonResponse
 
 def register(request):
-    pass
+    return JsonResponse ({'status':'register OK'})
 
 def modifyBalance(request):
-    pass
+    return JsonResponse ({'status':'modifyBalance OK'})
 
 def authenticate(request):
-    pass
+    return JsonResponse ({'status':'authenticate OK'})
 
 def info(request):
-    pass
+    return JsonResponse ({'status':'info OK'})
