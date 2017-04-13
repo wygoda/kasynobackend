@@ -38,19 +38,82 @@ def register(request):
     'id':u.id})
 
 def modifyBalance(request):
-    return JsonResponse({'status':'OK'})
+    userId = request.POST.get('id')
+    amount = request.POST.get('amount')
+    if userId==None or amount==None:
+        return JsonResponse({
+        'status':'FAIL',
+        'function':'modifyBalance',
+        'error':'there\'s no such user or invalid amount'})
+    try:
+        failed = 1
+        u = User.objects.get(pk=userId)
+        failed = u.modifyBalance(amount)
+        if not failed:
+            return JsonResponse({
+            'status':'OK',
+            'function':'modifyBalance',
+            'user':str(u)})
+        return JsonResponse({
+        'status':'FAIL',
+        'function':'modifyBalance',
+        'error':'invalid amount'})
+    except ObjectDoesNotExist:
+        return JsonResponse({
+        'status':'FAIL',
+        'function':'modifyBalance',
+        'error':'there\'s no such user'})
 
 def authenticate(request):
-    return JsonResponse({'status':'OK'})
+    password = request.POST.get('userPassword')
+    userId = request.POST.get('id')
+    try:
+        u = User.objects.get(pk=userId)
+        failed = 1
+        failed = u.authenticate(password)
+        if not failed:
+            return JsonResponse({
+            'status':'OK',
+            'function':'authenticate'
+            })
+        return JsonResponse({
+        'status':'FAIL',
+        'function':'authenticate',
+        'error':'wrong password'
+        })
+    except ObjectDoesNotExist:
+        return JsonResponse({
+        'status':'FAIL',
+        'function':'authenticate',
+        'error':'there\'s no such user'})
 
-def info(request):
+def getAll(request):
     usersdict = {}
     for u in User.objects.all():
         usersdict[u.id] = str(u)
     return JsonResponse({
     'status':'OK',
-    'function':'info',
+    'function':'getAll',
     'users':usersdict})
+
+def getUser(request):
+    userId = request.POST.get('id')
+    if userId==None:
+        return JsonResponse({
+        'status':'FAIL',
+        'function':'getUser',
+        'error':'there\'s no such user'})
+    try:
+        u = User.objects.get(pk=userId)
+        return JsonResponse({
+        'status':'OK',
+        'function':'getUser',
+        'user':str(u)})
+    except ObjectDoesNotExist:
+        return JsonResponse({
+        'status':'FAIL',
+        'function':'getUser',
+        'error':'there\'s no such user'})
 
 def delete(request):
     userId = request.POST.get('id')

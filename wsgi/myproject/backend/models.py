@@ -9,13 +9,13 @@ class User(models.Model):
     def modifyBalance(self, amount):
         try:
             self.balance += Decimal(amount)
-            return True
-        except Exception as e:
-            print(e)
-            return False
+            self.save()
+            return 0
+        except:
+            return 1
 
     def authenticate(self, password):
-        return True if self.password==password else False
+        return 0 if self.password==password else 1
 
     def __str__(self):
         result = str(self.id) + ", " + self.username + ", " + str(self.balance)

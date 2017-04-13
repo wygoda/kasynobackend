@@ -25,8 +25,11 @@ def user(request):
             if function=='authenticate':
                 return userapi.authenticate(request)
 
-            if function=='info':
-                return userapi.info(request)
+            if function=='getAll':
+                return userapi.getAll(request)
+
+            if function=='getUser':
+                return userapi.getUser(request)
 
             if function=='delete':
                 return userapi.delete(request)
