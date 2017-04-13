@@ -5,7 +5,7 @@ from django.core.exceptions import ObjectDoesNotExist
 def register(request):
     username = request.POST.get('username')
     exists = User.objects.filter(username=username)
-    if exists:
+    if exists: #zwraca true jesli lista nie jest pusta, false w przeciwnym wypadku
         return JsonResponse({
         'status':'FAIL',
         'function':'register',
