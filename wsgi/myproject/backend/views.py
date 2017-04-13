@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, Http404, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from .APIs import userapi
+from os import environ
 
 @csrf_exempt #those views must accept post requests from external frontends done by the rest of the team, our own validation is required to prevent from csrf attacks
 def user(request):
@@ -10,7 +11,7 @@ def user(request):
     # return out
 
     #TODO: use openshift environment variable instead of hardcoded password
-    if request.method=='POST' and request.POST.get('password')=='hasl0':
+    if request.method=='POST' and request.POST.get('password')==os.environ.get('apiPassword'):
         try:
             function = request.POST.get('function')
             if function==None:
