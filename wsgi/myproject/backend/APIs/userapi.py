@@ -2,6 +2,11 @@ from ..models import User
 from django.http import JsonResponse
 from django.core.exceptions import ObjectDoesNotExist
 
+def getId(username):
+    u = User.objects.filter(username=username)
+    if u:
+        return u[0].id
+
 def register(request):
     username = request.POST.get('username')
     exists = User.objects.filter(username=username)
@@ -38,7 +43,12 @@ def register(request):
     'id':u.id})
 
 def modifyBalance(request):
-    userId = request.POST.get('id')
+    #moze szukac po username albo po id
+    username = request.POST.get('username')
+    userId = getId(username)
+    if not userId:
+        userId = request.POST.get('id')
+
     amount = request.POST.get('amount')
     if userId==None or amount==None:
         return JsonResponse({
@@ -66,7 +76,10 @@ def modifyBalance(request):
 
 def authenticate(request):
     password = request.POST.get('userPassword')
-    userId = request.POST.get('id')
+    username = request.POST.get('username')
+    userId = getId(username)
+    if not userId:
+        userId = request.POST.get('id')
     try:
         u = User.objects.get(pk=userId)
         failed = 1
@@ -97,7 +110,11 @@ def getAll(request):
     'users':usersdict})
 
 def getUser(request):
-    userId = request.POST.get('id')
+    username = request.POST.get('username')
+    userId = getId(username)
+    if not userId:
+        userId = request.POST.get('id')
+
     if userId==None:
         return JsonResponse({
         'status':'FAIL',
@@ -116,7 +133,10 @@ def getUser(request):
         'error':'there\'s no such user'})
 
 def delete(request):
-    userId = request.POST.get('id')
+    username = request.POST.get('username')
+    userId = getId(username)
+    if not userId:
+        userId = request.POST.get('id')
     if userId==None:
         return JsonResponse({
         'status':'FAIL',
