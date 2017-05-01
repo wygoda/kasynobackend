@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, Http404, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from .APIs import userapi
+from .APIs import games
 import os
 
 @csrf_exempt #these views must accept post requests from external frontends done by the rest of the team, our own validation is required to prevent from csrf attacks
@@ -42,6 +43,25 @@ def user(request):
 
 @csrf_exempt
 def game(request):
-    out = HttpResponse()
-    out.write('<b>ok game</b>')
-    return out
+    #out = HttpResponse()
+    #out.write('<b>ok game</b>')
+    #return out
+	if request.method=='POST':
+        try:
+			function = request.POST.get('function')
+			if function==None:
+                return JsonResponse ({'status':'FAIL','error':'specify a function'})
+            if function=='slot':
+                return games.slot(request)
+			if function=='roulette':
+                return games.roulette(request)
+			if function=='dice':
+                return games.dice(request)
+			if function=='blackjack':
+                return games.blackjack(request)
+			if function=='poker':
+                return games.poker(request)
+		except:
+            return JsonResponse ({'status':'FAIL', 'error':'function execution went wrong'})
+    else:
+        return JsonResponse({'status':'FAIL', 'error':'you didn\'t use POST or didn\'t pass validation'})
