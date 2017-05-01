@@ -16,9 +16,7 @@ def slot(request):
 	"col22":col22,
 	"col32":col32})
 def roulette(request):
-	return JsonResponse({
-	'status':'FAIL',
-	'error':'Roulette is not implemented yet'})
+	return JsonResponse({"result":randint(0,36)})
 def dice(request):
 	throws = [randint(1,6),randint(1,6)]
 	return JsonResponse({"throws":throws})
