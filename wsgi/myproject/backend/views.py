@@ -63,7 +63,7 @@ def game(request):
 				return games.poker(request)
 			if function=='baccarat':
 				return games.baccarat(request)
-			if function=='cointoss'
+			if function=='cointoss':
 				return games.cointoss(request)
 		except:
 			return JsonResponse ({'status':'FAIL', 'error':'function execution went wrong'})
