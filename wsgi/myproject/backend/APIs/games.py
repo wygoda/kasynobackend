@@ -1,4 +1,5 @@
 from django.http import JsonResponse
+from random import sample
 
 def slot(request):
 	return JsonResponse({
@@ -17,9 +18,9 @@ def blackjack(request):
 	'status':'FAIL',
 	'error':'Blackjack is not implemented yet'})
 def poker(request):
+	cards=sample(range(1,53),10)
 	return JsonResponse({
-	'status':'FAIL',
-	'error':'Poker is not implemented yet'})
+	"cards":cards})
 def baccarat(request):
 	return JsonResponse({
 	'status':'FAIL',
