@@ -1,27 +1,39 @@
 from django.http import JsonResponse
-from random import sample
+from random import sample,randint
 
 def slot(request):
+	col1 = [randint(1,8) for n in range(8)]
+	col2 = [randint(1,8) for n in range(8)]
+	col3 = [randint(1,8) for n in range(8)]
+	col12 = [randint(1,8) for n in range(8)]
+	col22 = [randint(1,8) for n in range(8)]
+	col32 = [randint(1,8) for n in range(8)]
 	return JsonResponse({
-	'status':'FAIL',
-	'error':'Slot machines are not implemented yet'})
+	"col1":col1,
+	"col2":col2,
+	"col3":col3,
+	"col12":col12,
+	"col22":col22,
+	"col32":col32})
 def roulette(request):
 	return JsonResponse({
 	'status':'FAIL',
 	'error':'Roulette is not implemented yet'})
 def dice(request):
-	return JsonResponse({
-	'status':'FAIL',
-	'error':'Dices are not implemented yet'})
+	throws = [randint(1,6),randint(1,6)]
+	return JsonResponse({"throws":throws})
 def blackjack(request):
-	return JsonResponse({
-	'status':'FAIL',
-	'error':'Blackjack is not implemented yet'})
+	cards=[randint(1,52) for n in range(42)]#42 random numbers form 1 to 52
+	return JsonResponse({"cards":cards})
 def poker(request):
-	cards=sample(range(1,53),10)
-	return JsonResponse({
-	"cards":cards})
+	cards=sample(range(1,53),10)#10 different random numbers form 1 to 52
+	return JsonResponse({"cards":cards})
 def baccarat(request):
-	return JsonResponse({
-	'status':'FAIL',
-	'error':'Baccarat is not implemented yet'})
+	cards=[randint(1,52) for n in range(6)]
+	return JsonResponse({"cards":cards})
+def cointoss(request):
+	result = randint(0,1)
+	if result == 0:
+		return JsonResponse({"toss":"heads"})
+	else:
+		return JsonResponse({"toss":"tails"})
