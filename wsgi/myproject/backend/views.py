@@ -47,21 +47,23 @@ def game(request):
     #out.write('<b>ok game</b>')
     #return out
 	if request.method=='POST':
-        try:
+		try:
 			function = request.POST.get('function')
 			if function==None:
-                return JsonResponse ({'status':'FAIL','error':'specify a function'})
-            if function=='slot':
-                return games.slot(request)
+				return JsonResponse ({'status':'FAIL','error':'specify a function'})
+			if function=='slot':
+				return games.slot(request)
 			if function=='roulette':
-                return games.roulette(request)
+				return games.roulette(request)
 			if function=='dice':
-                return games.dice(request)
+				return games.dice(request)
 			if function=='blackjack':
-                return games.blackjack(request)
+				return games.blackjack(request)
 			if function=='poker':
-                return games.poker(request)
+				return games.poker(request)
+			if function=='baccarat':
+				return games.baccarat(request)
 		except:
-            return JsonResponse ({'status':'FAIL', 'error':'function execution went wrong'})
-    else:
-        return JsonResponse({'status':'FAIL', 'error':'you didn\'t use POST or didn\'t pass validation'})
+			return JsonResponse ({'status':'FAIL', 'error':'function execution went wrong'})
+	else:
+		return JsonResponse({'status':'FAIL', 'error':'you didn\'t use POST or didn\'t pass validation'})
