@@ -27,15 +27,7 @@ def slot(request):
 	else: #przegrana
 		betamount=-betamount
 	callModifyBalance(request,betamount)
-	return JsonResponse({
-	'amount':betamount,
-	'result':mid1==mid2==mid3,
-	'result2':mid1==1,
-	'result3':mid1=='1',
-	'mid1':mid1,
-	'mid2':mid2,
-	'mid3':mid3,
-	})
+	return JsonResponse({'amount':betamount})
 	
 def roulette(request):
 	return JsonResponse({"status":"Roulette not implemented"})
