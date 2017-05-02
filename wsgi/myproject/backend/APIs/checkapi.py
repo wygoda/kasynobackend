@@ -27,7 +27,6 @@ def slot(request):
 	else: #przegrana
 		betamount=-betamount
 	#callModifyBalance(request,betamount)
-	betamount = 500
 	return JsonResponse({'amount':betamount})
 	
 	return JsonResponse({"status":"Slots not implemented"})
@@ -47,9 +46,9 @@ def cointoss(request):
 	
 	
 	
-def callModifyBalance(request,betamount):
+def callModifyBalance(request,amount):
 	mutable = request.POST._mutable
 	request.POST._mutable = True
-	request.POST['amount'] = betamount
+	request.POST['amount'] = amount
 	request.POST._mutable = mutable
 	response=userapi.modifyBalance(request)
