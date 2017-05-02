@@ -63,6 +63,8 @@ def game(request):
 				return games.baccarat(request)
 			if function=='cointoss':
 				return games.cointoss(request)
+			else:
+				return JsonResponse({"error":"There is no such function"})
 		except:
 			return JsonResponse ({'status':'FAIL', 'error':'function execution went wrong'})
 	else:
@@ -89,3 +91,5 @@ def check(request):
 			return checkapi.baccarat(request)
 		if function=='cointoss':
 			return checkapi.cointoss(request)
+		else:
+			return JsonResponse({"error":"There is no such function"})
