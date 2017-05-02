@@ -3,6 +3,7 @@ from django.http import HttpResponse, Http404, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from .APIs import userapi
 from .APIs import games
+from .APIs import checkapi
 import os
 
 @csrf_exempt #these views must accept post requests from external frontends done by the rest of the team, our own validation is required to prevent from csrf attacks
@@ -43,9 +44,6 @@ def user(request):
 
 @csrf_exempt
 def game(request):
-    #out = HttpResponse()
-    #out.write('<b>ok game</b>')
-    #return out
 	if request.method=='POST':
 		try:
 			function = request.POST.get('function')
@@ -69,3 +67,8 @@ def game(request):
 			return JsonResponse ({'status':'FAIL', 'error':'function execution went wrong'})
 	else:
 		return JsonResponse({'status':'FAIL', 'error':'you didn\'t use POST or didn\'t pass validation'})
+		
+		
+@csrf_exempt
+def check(request):
+	return JsonResponse({"status":"i am working"})
