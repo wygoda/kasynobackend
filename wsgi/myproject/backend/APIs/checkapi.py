@@ -1,5 +1,5 @@
 from django.http import JsonResponse
-import userapi
+from . import userapi
 
 
 def slot(request):
