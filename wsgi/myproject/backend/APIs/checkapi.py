@@ -29,9 +29,13 @@ def slot(request):
 	callModifyBalance(request,betamount)
 	return JsonResponse({
 	'amount':betamount,
-	'result':col1[1]==1,
-	'result2':col1[2]==2,
-	'col1[1]':col1[1]})
+	'result':col1[1]==col2[1]==col3[1],
+	'result2':int(col1[1])==int(col2[1])==int(col3[1]),
+	'result2':col1[1]="1",
+	'col1[1]':col1[1],
+	'col1[2]':col1[2],
+	'col1[3]':col1[3],
+	})
 	
 def roulette(request):
 	return JsonResponse({"status":"Roulette not implemented"})
