@@ -50,5 +50,5 @@ def callModifyBalance(request,betamount):
 	mutable = request.POST._mutable
 	request.POST._mutable = True
 	request.POST['amount'] = betamount
-	requeest.POST._mutable = mutable
+	request.POST._mutable = mutable
 	response=userapi.modifyBalance(request)
