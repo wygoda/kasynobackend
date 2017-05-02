@@ -71,4 +71,21 @@ def game(request):
 		
 @csrf_exempt
 def check(request):
-	return JsonResponse({"status":"i am working"})
+	if request.method=='POST':
+		function = request.POST.get('function')
+		if function==None:
+			return JsonResponse ({'status':'FAIL','error':'specify a function'})
+		if function=='slot':
+			return checkapi.slot(request)
+		if function=='roulette':
+			return checkapi.roulette(request)
+		if function=='dice':
+			return checkapi.dice(request)
+		if function=='blackjack':
+			return checkapi.blackjack(request)
+		if function=='poker':
+			return checkapi.poker(request)
+		if function=='baccarat':
+			return checkapi.baccarat(request)
+		if function=='cointoss':
+			return checkapi.cointoss(request)
