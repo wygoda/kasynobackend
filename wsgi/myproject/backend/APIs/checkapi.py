@@ -26,7 +26,7 @@ def slot(request):
 			betamount=betamount*30
 	else: #przegrana
 		betamount=-betamount
-	callModifyBalance(request,betamount)
+	#callModifyBalance(request,betamount)
 	return JsonResponse({'amount':betamount})
 	
 	return JsonResponse({"status":"Slots not implemented"})
