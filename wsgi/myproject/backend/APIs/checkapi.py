@@ -7,6 +7,7 @@ def slot(request):
 	col2 = request.POST.get('col2')
 	col3 = request.POST.get('col3')
 	betamount = request.POST.get('betamount')
+	bet=0
 	if col1[1]==col2[1]==col3[1]:#jesli srodkowy wiersz ma 3 takie same znaczki
 		if col1[1]==1:#winogorona x2
 			bet=betamount*2
