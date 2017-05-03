@@ -43,11 +43,18 @@ def baccarat(request):
 	bet = request.POST.get('bet')
 	bankCards = makeArrayOfIntsFromString(request,'bank')
 	playerCards = makeArrayOfIntsFromString(request,'player')
-	bankCards = baccaratScore(bankCards)
-	playerCards = baccaratScore(playerCards)	
+	bankScore = baccaratScore(bankCards)
+	playerScore = baccaratScore(playerCards)
+	result =''
+	if bankScore == playerScore:
+		result = 'tie'
+	elif bankScore > playerScore:
+		result = 'bank'
+	else:
+		result = 'player'
 	return JsonResponse({
-	'player cards':playerCards,
-	'banks':bankCards})
+	'winner':result,
+	'result==bet':result==bet})
 	
 def cointoss(request):
 	betamount = float(request.POST.get('betamount'))
@@ -59,8 +66,7 @@ def cointoss(request):
 		betamount=-betamount
 	callModifyBalance(request,betamount)
 	return JsonResponse({'amount':betamount})
-	
-	
+		
 def makeArrayOfIntsFromString(request,postKey):
 	arr = request.POST.get(postKey)
 	arr = arr.split(',')
