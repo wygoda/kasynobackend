@@ -39,7 +39,21 @@ def blackjack(request):
 def poker(request):
 	return JsonResponse({"status":"Poker not implemented"})
 def baccarat(request):
-	return JsonResponse({"status":"Baccarat not implemented"})
+	betamount = float(request.POST.get('betamount'))
+	bet = request.POST.get('bet')
+	#wyciagamy karty jako string
+	bankCards = request.POST.get('bank')
+	playerCards = request.POST.get('player')
+	#zamieniamy na tablice stringow
+	bankCards = bankCards.split(',')
+	playerCards = playerCards.split(',')
+	#zamieniamy na tablice intow
+	bankCards = [int(card) for card in bankCards]
+	playerCards = [int(card) for card in playerCards]
+	return JsonResponse({
+	'player cards':playerCards,
+	'banks ':bankCards)}
+	
 def cointoss(request):
 	betamount = float(request.POST.get('betamount'))
 	bet = request.POST.get('bet')
