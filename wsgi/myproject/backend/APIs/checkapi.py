@@ -59,7 +59,7 @@ def cointoss(request):
 	return JsonResponse({'amount':betamount})
 	
 	
-def makeArrayOfIntsFromString(request,postKey)
+def makeArrayOfIntsFromString(request,postKey):
 	arr = request.POST.get(postKey)
 	arr = arr.split(',')
 	arr = [int(value) for value in arr]
