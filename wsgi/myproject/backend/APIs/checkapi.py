@@ -122,7 +122,7 @@ def blackjackScore(arrayOfInts):
 		else:
 			if (result + valueFromAces) > bestOption:#sprawdzamy czy ten podzial na '1' i '10' jest lepszy
 				bestOption = result + valueFromAces
-		result = bestOption
+	result = bestOption
 	if result > 21:
 		result = 0
 	return result
