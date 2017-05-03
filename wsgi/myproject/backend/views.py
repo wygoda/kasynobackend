@@ -44,7 +44,7 @@ def user(request):
 
 @csrf_exempt
 def game(request):
-	if request.method=='POST':
+	if request.method=='POST' and request.POST.get('password')==os.environ.get('apiPassword'):
 		try:
 			function = request.POST.get('function')
 			if function==None:
@@ -73,7 +73,7 @@ def game(request):
 		
 @csrf_exempt
 def check(request):
-	if request.method=='POST':
+	if request.method=='POST' and request.POST.get('password')==os.environ.get('apiPassword'):
 		function = request.POST.get('function')
 		if function==None:
 			return JsonResponse ({'status':'FAIL','error':'specify a function'})
