@@ -113,15 +113,16 @@ def blackjackScore(arrayOfInts):
 		elif value == 1:#as
 			numberOfAces = numberOfAces + 1
 	#tu mamy juz policzone wszystkie karty z wyjatkiem asow
-	valueFromAces = 0 
+	valueFromAces = 0
+	bestOption = result
 	for i in range(0,numberOfAces+1):
-		bestOption = result
-		valueFromAces = (numberOfAces-i) * 1 + i*10
-		if  result + valueFromAces > 21:
+		valueFromAces = (numberOfAces-i) * 1 + i*10#tu jest liczona wartosc jezeli z n asow i bedzie traktowane jako '1' a n-i jako 10
+		if  result + valueFromAces > 21:#wartosc liczona u gory jest rosnaca wiec jesli ktoras przekroczy 21 to konczymy petle
 			break
 		else:
-			if result + valueFromAces > bestOption:
+			if (result + valueFromAces) > bestOption:#sprawdzamy czy ten podzial na '1' i '10' jest lepszy
 				bestOption = result + valueFromAces
+		result = bestOption
 	if result > 21:
 		result = 0
 	return result
