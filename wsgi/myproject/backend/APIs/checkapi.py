@@ -38,8 +38,15 @@ def blackjack(request):
 	betamount = float(request.POST.get('betamount'))
 	bankCards = makeArrayOfIntsFromString(request,'bank')
 	playerCards = makeArrayOfIntsFromString(request,'player')
+	bankScore = blackjackScore(bankCards)
+	playerScore = blackjackScore(playerCards)
 	amount = 0
-	return JsonResponse({"score":blackjackScore(playerCards)})
+	if bankScore > playerScore:
+		amount = - betamount
+	elif bankScore < playerScore:
+		amount = betamount
+	callModifyBalance(request,amount)
+	return JsonResponse({"amount":amount})
 def poker(request):
 	return JsonResponse({"status":"Poker not implemented"})
 def baccarat(request):

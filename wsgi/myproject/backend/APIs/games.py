@@ -22,8 +22,13 @@ def dice(request):
 	throws = [randint(1,6),randint(1,6)]
 	return JsonResponse({"throws":throws})
 def blackjack(request):
-	cards=[randint(1,52) for n in range(42)]#42 random numbers form 1 to 52
-	return JsonResponse({"cards":cards})
+	player = [randint(1,52) for n in range(22)]
+	bank = [randint(1,52) for n in range(2)]
+	while checkapi.blackjackScore(bank) < 15 :
+		bank.append(randint(1,52))
+	return JsonResponse({
+	'bank':bank,
+	'player':player})	
 def poker(request):
 	cards=sample(range(1,53),10)#10 different random numbers form 1 to 52
 	return JsonResponse({"cards":cards})
