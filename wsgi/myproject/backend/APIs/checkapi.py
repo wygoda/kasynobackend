@@ -8,6 +8,7 @@ def slot(request):
 	mid3 = request.POST.get('mid3')
 	betamount = int(request.POST.get('betamount'))
 	if mid1==mid2==mid3:#jesli srodkowy wiersz ma 3 takie same znaczki
+	#symbole oczywiscie moga sie zmienic - tu komentarze i wygrane sa z grafiki z trello
 		if mid1=='1':#winogorona x2
 			betamount=betamount*2
 		if mid1=='2':#wisnie x3
@@ -40,10 +41,14 @@ def poker(request):
 def baccarat(request):
 	return JsonResponse({"status":"Baccarat not implemented"})
 def cointoss(request):
-	return JsonResponse({"status":"Coin toss not implemented"})
-
-	
-	
+	betamount = double(request.POST.get('betamount'))
+	bet = request.POST.get('bet')
+	toss = request.POST.get('toss')
+	if bet==toss:
+		betamount = betamount * 1.9
+	else:
+		betamount=-betamount
+	callModifyBalance(request,betamount)
 	
 def callModifyBalance(request,amount):
 	mutable = request.POST._mutable
