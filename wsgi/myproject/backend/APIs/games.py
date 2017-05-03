@@ -1,5 +1,6 @@
 from django.http import JsonResponse
 from random import sample,randint
+from . import checkapi
 
 def slot(request):
 	col1 = [randint(1,8) for n in range(8)]
@@ -27,8 +28,13 @@ def poker(request):
 	cards=sample(range(1,53),10)#10 different random numbers form 1 to 52
 	return JsonResponse({"cards":cards})
 def baccarat(request):
-	cards=[randint(1,52) for n in range(6)]
-	return JsonResponse({"cards":cards})
+	player = [randint(1,52) for n in range(2)]
+	bank = [randint(1,52) for n in range(2)]
+	#if checkapi.baccaratScore(player)>=8 or checkapi.baccaratScore(bank)>=8:
+	return JsonResponse({
+	'bank':bank,
+	'player':player})
+		
 def cointoss(request):
 	result = randint(0,1)
 	if result == 0:

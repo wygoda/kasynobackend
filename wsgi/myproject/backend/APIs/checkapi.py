@@ -76,4 +76,8 @@ def callModifyBalance(request,amount):
 	
 def baccaratScore(arrayOfInts):
 	arrayOfInts = [ value%13 for value in arrayOfInts ]
-	return arrayOfInts
+	result = 0;
+	for value in arrayOfInts:
+		if value < 10:
+			result = result + value
+	return result % 10
