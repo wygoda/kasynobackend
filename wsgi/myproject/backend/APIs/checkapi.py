@@ -6,7 +6,7 @@ def slot(request):
 	mid1 = request.POST.get('mid1')
 	mid2 = request.POST.get('mid2')
 	mid3 = request.POST.get('mid3')
-	betamount = int(request.POST.get('betamount'))
+	betamount = float(request.POST.get('betamount'))
 	if mid1==mid2==mid3:#jesli srodkowy wiersz ma 3 takie same znaczki
 	#symbole oczywiscie moga sie zmienic - tu komentarze i wygrane sa z grafiki z trello
 		if mid1=='1':#winogorona x2
@@ -45,16 +45,24 @@ def baccarat(request):
 	playerCards = makeArrayOfIntsFromString(request,'player')
 	bankScore = baccaratScore(bankCards)
 	playerScore = baccaratScore(playerCards)
-	result =''
+	result = ''
+	amount = 0
 	if bankScore == playerScore:
 		result = 'tie'
 	elif bankScore > playerScore:
 		result = 'bank'
 	else:
 		result = 'player'
-	return JsonResponse({
-	'winner':result,
-	'result==bet':result==bet})
+	if result==bet:
+		if bet == 'player':
+			amount = 2 * betamount
+		elif bet == 'bank':
+			amount = 1.95 * betamount
+		else :
+			amount = 8 * betamount
+	else :
+		amount = - betamount
+	return JsonResponse({'amount':betamount})
 	
 def cointoss(request):
 	betamount = float(request.POST.get('betamount'))
