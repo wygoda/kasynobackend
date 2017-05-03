@@ -49,6 +49,7 @@ def cointoss(request):
 	else:
 		betamount=-betamount
 	callModifyBalance(request,betamount)
+	return JsonResponse({'amount':betamount})
 	
 def callModifyBalance(request,amount):
 	mutable = request.POST._mutable
