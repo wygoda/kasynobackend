@@ -41,7 +41,7 @@ def poker(request):
 def baccarat(request):
 	return JsonResponse({"status":"Baccarat not implemented"})
 def cointoss(request):
-	betamount = double(request.POST.get('betamount'))
+	betamount = float(request.POST.get('betamount'))
 	bet = request.POST.get('bet')
 	toss = request.POST.get('toss')
 	if bet==toss:
