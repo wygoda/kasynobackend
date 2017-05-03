@@ -62,7 +62,8 @@ def baccarat(request):
 			amount = 8 * betamount
 	else :
 		amount = - betamount
-	return JsonResponse({'amount':betamount})
+	callModifyBalance(request, amount)
+	return JsonResponse({'amount':amount})
 	
 def cointoss(request):
 	betamount = float(request.POST.get('betamount'))
