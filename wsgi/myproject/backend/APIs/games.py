@@ -57,7 +57,6 @@ def baccarat(request):
 	return JsonResponse({
 	'bank':bank,
 	'player':player})
-			
 def cointoss(request):
 	result = randint(0,1)
 	if result == 0:

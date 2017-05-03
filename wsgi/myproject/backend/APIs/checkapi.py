@@ -116,9 +116,9 @@ def blackjackScore(arrayOfInts):
 	valueFromAces = 0 
 	for i in range(0,numberOfAces+1):
 		bestOption = value
-		valueFromAces = valueFromAces + i * 1 + (numberOfAces-i)*10
+		valueFromAces = (numberOfAces-i) * 1 + i*10
 		if  value + valueFromAces > 21:
-			continue
+			break
 		else:
 			if value + valueFromAces > bestOption:
 				bestOption = value + valueFromAces
