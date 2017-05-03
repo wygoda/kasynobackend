@@ -115,13 +115,13 @@ def blackjackScore(arrayOfInts):
 	#tu mamy juz policzone wszystkie karty z wyjatkiem asow
 	valueFromAces = 0 
 	for i in range(0,numberOfAces+1):
-		bestOption = value
+		bestOption = result
 		valueFromAces = (numberOfAces-i) * 1 + i*10
-		if  value + valueFromAces > 21:
+		if  result + valueFromAces > 21:
 			break
 		else:
-			if value + valueFromAces > bestOption:
-				bestOption = value + valueFromAces
+			if result + valueFromAces > bestOption:
+				bestOption = result + valueFromAces
 	if result > 21:
 		result = 0
 	return result
