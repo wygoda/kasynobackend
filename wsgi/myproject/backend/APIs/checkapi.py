@@ -43,6 +43,8 @@ def baccarat(request):
 	bet = request.POST.get('bet')
 	bankCards = makeArrayOfIntsFromString(request,'bank')
 	playerCards = makeArrayOfIntsFromString(request,'player')
+	bankCards = baccaratScore(bankCards)
+	playerCards = baccaratScore(playerCards)	
 	return JsonResponse({
 	'player cards':playerCards,
 	'banks':bankCards})
@@ -71,3 +73,7 @@ def callModifyBalance(request,amount):
 	request.POST['amount'] = amount
 	request.POST._mutable = mutable
 	response=userapi.modifyBalance(request)
+	
+def baccaratScore(arrayOfInts):
+	arrayOfInts = [ value%13 for value in arrayOfInts ]
+	return arrayOfInts
