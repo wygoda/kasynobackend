@@ -41,15 +41,8 @@ def poker(request):
 def baccarat(request):
 	betamount = float(request.POST.get('betamount'))
 	bet = request.POST.get('bet')
-	#wyciagamy karty jako string
-	bankCards = request.POST.get('bank')
-	playerCards = request.POST.get('player')
-	#zamieniamy na tablice stringow
-	bankCards = bankCards.split(',')
-	playerCards = playerCards.split(',')
-	#zamieniamy na tablice intow
-	bankCards = [int(card) for card in bankCards]
-	playerCards = [int(card) for card in playerCards]
+	bankCards = makeArrayOfIntsFromString(request,'bank')
+	playerCards = makeArrayOfIntsFromString(request,'player')
 	return JsonResponse({
 	'player cards':playerCards,
 	'banks':bankCards})
@@ -64,6 +57,13 @@ def cointoss(request):
 		betamount=-betamount
 	callModifyBalance(request,betamount)
 	return JsonResponse({'amount':betamount})
+	
+	
+def makeArrayOfIntsFromString(request,postKey)
+	arr = request.POST.get(postKey)
+	arr = arr.split(',')
+	arr = [int(value) for value in arr]
+	return arr
 	
 def callModifyBalance(request,amount):
 	mutable = request.POST._mutable
