@@ -35,7 +35,11 @@ def roulette(request):
 def dice(request):
 	return JsonResponse({"status":"Dices not implemented"})
 def blackjack(request):
-	return JsonResponse({"status":"Blackjack not implemented"})
+	betamount = float(request.POST.get('betamount'))
+	bankCards = makeArrayOfIntsFromString(request,'bank')
+	playerCards = makeArrayOfIntsFromString(request,'player')
+	amount = 0
+	return JsonResponse({"score":blackjackScore(playerCards)})
 def poker(request):
 	return JsonResponse({"status":"Poker not implemented"})
 def baccarat(request):
@@ -75,20 +79,21 @@ def cointoss(request):
 		betamount=-betamount
 	callModifyBalance(request,betamount)
 	return JsonResponse({'amount':betamount})
-		
+
+	
+	
+#pomocniczne metody
 def makeArrayOfIntsFromString(request,postKey):
 	arr = request.POST.get(postKey)
 	arr = arr.split(',')
 	arr = [int(value) for value in arr]
 	return arr
-	
 def callModifyBalance(request,amount):
 	mutable = request.POST._mutable
 	request.POST._mutable = True
 	request.POST['amount'] = amount
 	request.POST._mutable = mutable
 	response=userapi.modifyBalance(request)
-	
 def baccaratScore(arrayOfInts):
 	arrayOfInts = [ value%13 for value in arrayOfInts ]
 	result = 0;
@@ -96,3 +101,27 @@ def baccaratScore(arrayOfInts):
 		if value < 10:
 			result = result + value
 	return result % 10
+def blackjackScore(arrayOfInts):
+	arrayOfInts = [value%13 for value in arrayOfInts]
+	result = 0
+	numberOfAces = 0
+	for value in arrayOfInts:
+		if value >=2 and value <=10:
+			result = result + value
+		elif value == 0 or value == 11 or value == 12: #krol od walet or dama
+			result = result + 10
+		elif value == 1:#as
+			numberOfAces = numberOfAces + 1
+	#tu mamy juz policzone wszystkie karty z wyjatkiem asow
+	valueFromAces = 0 
+	for i in range(0,numberOfAces+1):
+		bestOption = value
+		valueFromAces = valueFromAces + i * 1 + (numberOfAces-i)*10
+		if  value + valueFromAces > 21:
+			continue
+		else:
+			if value + valueFromAces > bestOption:
+				bestOption = value + valueFromAces
+	if result > 21:
+		result = 0
+	return result
