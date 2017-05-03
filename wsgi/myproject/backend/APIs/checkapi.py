@@ -29,7 +29,6 @@ def slot(request):
 		betamount=-betamount
 	callModifyBalance(request,betamount)
 	return JsonResponse({'amount':betamount})
-	
 def roulette(request):
 	return JsonResponse({"status":"Roulette not implemented"})
 def dice(request):
@@ -75,7 +74,6 @@ def baccarat(request):
 		amount = - betamount
 	callModifyBalance(request, amount)
 	return JsonResponse({'amount':amount})
-	
 def cointoss(request):
 	betamount = float(request.POST.get('betamount'))
 	bet = request.POST.get('bet')
@@ -86,8 +84,6 @@ def cointoss(request):
 		betamount=-betamount
 	callModifyBalance(request,betamount)
 	return JsonResponse({'amount':betamount})
-
-	
 	
 #pomocniczne metody
 def makeArrayOfIntsFromString(request,postKey):
