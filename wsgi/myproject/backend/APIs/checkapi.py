@@ -52,7 +52,7 @@ def baccarat(request):
 	playerCards = [int(card) for card in playerCards]
 	return JsonResponse({
 	'player cards':playerCards,
-	'banks ':bankCards)}
+	'banks':bankCards})
 	
 def cointoss(request):
 	betamount = float(request.POST.get('betamount'))
