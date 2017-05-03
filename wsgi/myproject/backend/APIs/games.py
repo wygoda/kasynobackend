@@ -30,11 +30,34 @@ def poker(request):
 def baccarat(request):
 	player = [randint(1,52) for n in range(2)]
 	bank = [randint(1,52) for n in range(2)]
-	#if checkapi.baccaratScore(player)>=8 or checkapi.baccaratScore(bank)>=8:
+		if checkapi.baccaratScore(player)>=8 or checkapi.baccaratScore(bank)>=8:
+			return JsonResponse({
+			'bank':bank,
+			'player':player})
+		elif checkapi.baccaratScore(player)>=6 and checkapi.baccaratScore(bank)<=5:
+			bank.append(randint(1,52))
+		elif checkapi.baccaratScore(player)<=5:
+			thirdCard = randint(1,52)
+			player.append(thirdCard)
+			valueOfThird = thirdCard%13
+			if valueOfThird >= 10:
+				valueOfThird = 0
+			valueOfThird=valueOfThird%10
+			bankScore = checkapi.baccaratScore(bank)
+			if bankScore<=2:
+				bank.append(randint(1,52))
+			elif bankScore == 3 and valueOfThird != 8:
+				bank.append(randint(1,52))
+			elif bankScore == 4 and valueOfThird > 1 and valueOfThird < 8:
+				bank.append(randint(1,52))
+			elif bankScore == 5 and valueOfThird > 3 and valueOfThird < 8:
+				bank.append(randint(1,52))
+			elif bankScore == 6 and valueOfThird > 5 and valueOfThird < 8:
+				bank.append(randint(1,52))
 	return JsonResponse({
 	'bank':bank,
 	'player':player})
-		
+			
 def cointoss(request):
 	result = randint(0,1)
 	if result == 0:
