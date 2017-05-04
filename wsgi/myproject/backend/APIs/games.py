@@ -3,12 +3,12 @@ from random import sample,randint
 from . import checkapi
 
 def slot(request):
-	col1 = [randint(1,8) for n in range(8)]
-	col2 = [randint(1,8) for n in range(8)]
-	col3 = [randint(1,8) for n in range(8)]
-	col12 = [randint(1,8) for n in range(8)]
-	col22 = [randint(1,8) for n in range(8)]
-	col32 = [randint(1,8) for n in range(8)]
+	col1 = [randint(1,8) for n in range(3)]
+	col2 = [randint(1,8) for n in range(3)]
+	col3 = [randint(1,8) for n in range(3)]
+	col12 = [randint(1,8) for n in range(3)]
+	col22 = [randint(1,8) for n in range(3)]
+	col32 = [randint(1,8) for n in range(3)]
 	return JsonResponse({
 	"col1":col1,
 	"col2":col2,
