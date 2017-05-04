@@ -117,8 +117,8 @@ def blackjackScore(arrayOfInts):
 			numberOfAces = numberOfAces + 1
 	#tu mamy juz policzone wszystkie karty z wyjatkiem asow
 	valueFromAces = 0
-	bestOption = result
-	for i in range(0,numberOfAces+1):
+	bestOption = result + numberOfAces # najmniejszy mozliwy wynik ( punkty z karty + asy za jeden )
+	for i in range(1,numberOfAces+1):
 		valueFromAces = (numberOfAces-i) * 1 + i*10#tu jest liczona wartosc jezeli z n asow i bedzie traktowane jako '1' a n-i jako 10
 		if  result + valueFromAces > 21:#wartosc liczona u gory jest rosnaca wiec jesli ktoras przekroczy 21 to konczymy petle
 			break
