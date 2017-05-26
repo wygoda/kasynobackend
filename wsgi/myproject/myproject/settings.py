@@ -54,7 +54,7 @@ INSTALLED_APPS = (
 )
 
 MIDDLEWARE_CLASSES = (
-    'corsheaders.middleware.CorsMiddleware'
+    'corsheaders.middleware.CorsMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -65,7 +65,7 @@ MIDDLEWARE_CLASSES = (
 )
 
 CORS_ORIGIN_WHITELIST = (
-    'projektzespolowysggw.azurewebsites.net'
+    'projektzespolowysggw.azurewebsites.net',
 )
 
 # GETTING-STARTED: change 'myproject' to your project name:
