@@ -88,6 +88,7 @@ def authenticate(request):
             return JsonResponse({
             'status':'OK',
             'function':'authenticate'
+            'balance':u.balance
             })
         return JsonResponse({
         'status':'FAIL',
