@@ -31,28 +31,28 @@ def slot(request):
 	return JsonResponse({'amount':betamount})
 
 def roulette(request):
-        # przelicznik dla poszczególnych kombinacji
-        # number (pojedynczy numer) ------------------ 36
-        # red (czerwone) ----------------------------- 2
-        # black (czarne) ----------------------------- 2
-        # odd (nieparzyste) -------------------------- 2
-        # even (parzyste) ---------------------------- 2
-        # low (niskie 1-18) -------------------------- 2
-        # high (wysokie 19-36) ----------------------- 2
-        # 1st 12 (pierwszy tuzin 1-12) --------------- 3
-        # 2nd 12 (drugi tuzin 13-24) ----------------- 3
-        # 3rd 12 (trzeci tuzin 25-36) ---------------- 3
-        # 1st column (pierwsza kolumna %3 == 1) ------ 3
-        # 2nd column (druga kolumna %3 == 2) --------- 3
-        # 3rd column (trzecia kolumna %3 == 0) ------- 3
-        # 1st half (pierwsza połowa 1-18) ------------ 2
-        # 2nd half (druga połowa 19-36) -------------- 2
-        betList = makeArrayOfIntsFromString(request,'roulettebets')
-        roulettespin = float(request.POST.get('roulettespin'))
-        betListLen = len(betList)
-        betamount = 0
-        red = [1,3,5,7,9,12,14,16,18,19,21,23,25,27,30,32,34,36]
-        black = [2,4,6,8,10,11,13,15,17,20,22,24,26,28,29,31,33,35]
+	# przelicznik dla poszczególnych kombinacji
+	# number (pojedynczy numer) ------------------ 36
+	# red (czerwone) ----------------------------- 2
+	# black (czarne) ----------------------------- 2
+	# odd (nieparzyste) -------------------------- 2
+	# even (parzyste) ---------------------------- 2
+	# low (niskie 1-18) -------------------------- 2
+	# high (wysokie 19-36) ----------------------- 2
+	# 1st 12 (pierwszy tuzin 1-12) --------------- 3
+	# 2nd 12 (drugi tuzin 13-24) ----------------- 3
+	# 3rd 12 (trzeci tuzin 25-36) ---------------- 3
+	# 1st column (pierwsza kolumna %3 == 1) ------ 3
+	# 2nd column (druga kolumna %3 == 2) --------- 3
+	# 3rd column (trzecia kolumna %3 == 0) ------- 3
+	# 1st half (pierwsza połowa 1-18) ------------ 2
+	# 2nd half (druga połowa 19-36) -------------- 2
+	betList = makeArrayOfIntsFromString(request,'roulettebets')
+	roulettespin = float(request.POST.get('roulettespin'))
+	betListLen = len(betList)
+	betamount = 0
+	red = [1,3,5,7,9,12,14,16,18,19,21,23,25,27,30,32,34,36]
+	black = [2,4,6,8,10,11,13,15,17,20,22,24,26,28,29,31,33,35]
 	for i in range(37):
 		#spradzenie czy obstawiono dany numer
 		if roulettespin == i and betList[i] != 0:
@@ -144,8 +144,8 @@ def dice(request):
                 premium = 20
         if dicebet == diceroll or dicebetreversed == diceroll:
                 betamount = betamount * premium
-	else:
-		betamount = -1 * betamount
+        else:
+                betamount = -1 * betamount
         callModifyBalance(request,betamount)
         return JsonResponse({'amount':betamount})
 
@@ -248,13 +248,13 @@ def pokerScore(arrayOfInts):
         result = "error"
         #sprawdzanie kombinacji
         if arr[0] >= 1 and arr[4] <= 13 or arr[0] >= 14 and arr[4] <= 26 or arr[0] >= 27 and arr[4] <= 39 or arr[0] >= 40 and arr[4] <= 52:
-        #sprawdzanie królewskiego pokera
+                #sprawdzanie królewskiego pokera
                 if arrM13[0] == 0 and arrM13[1] == 1 and arrM13[2] == 10 and arrM13[4] == 12:
                         result = "royal flush"
-        #sprawdzanie pokera
+                #sprawdzanie pokera
                 elif (arrM13[4] - arrM13[0] == 4 and arrM13[0] != 0) or (arrM13[0] == 0 and arrM13[1] == 9 and arrM13[4] == 12):
                         result = "straight flush"
-        #jeśli nie poker to kolor
+                #jeśli nie poker to kolor
                 else:
                         result = "flush"
         #sprawdzanie strita
@@ -268,7 +268,7 @@ def pokerScore(arrayOfInts):
                 result = "three of a kind"
         elif (arrM13[0] == arrM13[1] and arrM13[2] == arrM13[3]) or (arrM13[0] == arrM13[1] and arrM13[3] == arrM13[4]) or (arrM13[1] == arrM13[2] and arrM13[3] == arrM13[4]):
                 result = "two pair"
-        elif (arrM13[0] == arrM13[1] == 0) or (arrM13[0] == 0 and arrM13[1] == 1 and arrM13[2] == 1) or (arrM13[0] == 1 and arrM13[1] == 1) or (arrM13[0] == arrM13[1] and arrM13[0] >= 11) or (arrM13[1] == arrM13[2] and arrM13[1] >= 11) or (arrM13[2] == arrM13[3] and arrM13[2] >= 11) or (arrM13[3] == arrM13[4] and arrM13[3] >= 11)  : 
+        elif (arrM13[0] == arrM13[1] == 0) or (arrM13[0] == 0 and arrM13[1] == 1 and arrM13[2] == 1) or (arrM13[0] == 1 and arrM13[1] == 1) or (arrM13[0] == arrM13[1] and arrM13[0] >= 11) or (arrM13[1] == arrM13[2] and arrM13[1] >= 11) or (arrM13[2] == arrM13[3] and arrM13[2] >= 11) or (arrM13[3] == arrM13[4] and arrM13[3] >= 11)  :
                 result = "jacks or higher"
         else:
                 result = "nothing"
