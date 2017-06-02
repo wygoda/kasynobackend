@@ -269,7 +269,7 @@ def pokerScore(arrayOfInts):
         elif (arrM13[0] == arrM13[1] and arrM13[2] == arrM13[3]) or (arrM13[0] == arrM13[1] and arrM13[3] == arrM13[4]) or (arrM13[1] == arrM13[2] and arrM13[3] == arrM13[4]):
                 result = "two pair"
         elif (arrM13[0] == arrM13[1] == 0) or (arrM13[0] == 0 and arrM13[1] == 1 and arrM13[2] == 1) or (arrM13[0] == 1 and arrM13[1] == 1) or (arrM13[0] == arrM13[1] and arrM13[0] >= 11) or (arrM13[1] == arrM13[2] and arrM13[1] >= 11) or (arrM13[2] == arrM13[3] and arrM13[2] >= 11) or (arrM13[3] == arrM13[4] and arrM13[3] >= 11)  :
-                result = "jacks or higher"
+                result = "jacks or better"
         else:
                 result = "nothing"
         return result
