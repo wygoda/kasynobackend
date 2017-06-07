@@ -13,16 +13,15 @@ def user(request):
 	# out = HttpResponse()
 	# out.write('<b>ok user</b>')
 	# return out
+	if function=='register':
+				return userapi.register(request)
+				
 	jsonDictionry = json.loads(userapi.authenticate(request).content.decode())
 	if request.method=='POST' and jsonDictionry['status']=="OK":
 		try:
 			function = request.POST.get('function')
 			if function==None:
 				return JsonResponse ({'status':'FAIL','error':'specify a function'})
-    
-			if function=='register':
-				return userapi.register(request)
-    
 			if function=='modifyBalance':
 				return userapi.modifyBalance(request)
     
@@ -42,7 +41,7 @@ def user(request):
 		except:
 			return JsonResponse ({'status':'FAIL', 'error':'function execution went wrong'})
 	else:
-		return JsonResponse({'status':'FAIL', 'error':'you didn\'t use POST or didn\'t pass validation'})
+		return JsonResponse({'status':'FAIL', 'error':'you didn\'t use POST or didn\'t pass validation',"jsonDictionry['status']":jsonDictionry['status']})
 		
 @csrf_exempt
 def game(request):
