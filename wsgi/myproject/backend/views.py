@@ -24,9 +24,7 @@ def authenticate(request):
         failed = u.authenticate(password)
         if not failed:
             return True
-            })
         return False
-        })
     except ObjectDoesNotExist:
         return False
 		
