@@ -17,8 +17,8 @@ def user(request):
 	if function=='register':
 				return userapi.register(request)
 				
-	jsonDictionry = json.loads(userapi.authenticate(request).content.decode())
-	if request.method=='POST' and jsonDictionry['status']=="OK":
+	jsonDictionary = json.loads(userapi.authenticate(request).content.decode())
+	if request.method=='POST' and jsonDictionary['status']=="OK":
 		try:
 			if function==None:
 				return JsonResponse ({'status':'FAIL','error':'specify a function'})
@@ -41,7 +41,7 @@ def user(request):
 		except:
 			return JsonResponse ({'status':'FAIL', 'error':'function execution went wrong'})
 	else:
-		return JsonResponse({'status':'FAIL', 'error':'you didn\'t use POST or didn\'t pass validation',"jsonDictionry['status']":jsonDictionry['status']})
+		return JsonResponse({'status':'FAIL', 'error':'you didn\'t use POST or didn\'t pass validation'})
 		
 @csrf_exempt
 def game(request):
@@ -74,8 +74,8 @@ def game(request):
 		
 @csrf_exempt
 def check(request):
-	jsonDictionry = json.loads(userapi.authenticate(request).content.decode())
-	if request.method=='POST' and jsonDictionry['status']=='OK':
+	jsonDictionary = json.loads(userapi.authenticate(request).content.decode())
+	if request.method=='POST' and jsonDictionary['status']=='OK':
 		function = request.POST.get('function')
 		if function==None:
 			return JsonResponse ({'status':'FAIL','error':'specify a function'})
