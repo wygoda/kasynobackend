@@ -7,26 +7,6 @@ from .APIs import checkapi
 import os
 import json
 
-def getId(username):
-    u = User.objects.filter(username=username)
-    if u:
-        return u[0].id
-		
-def authenticate(request):
-    password = request.POST.get('userPassword')
-    username = request.POST.get('username')
-    userId = getId(username)
-    if not userId:
-        userId = request.POST.get('id')
-    try:
-        u = User.objects.get(pk=userId)
-        failed = 1
-        failed = u.authenticate(password)
-        if not failed:
-            return True
-        return False
-    except ObjectDoesNotExist:
-        return False
 		
 @csrf_exempt #these views must accept post requests from external frontends done by the rest of the team, our own validation is required to prevent from csrf attacks
 def user(request):
@@ -35,7 +15,7 @@ def user(request):
 	# return out
 	
 
-	if request.method=='POST' and authenticate(request):
+	if request.method=='POST' and False:
 		try:
 			function = request.POST.get('function')
 			if function==None:
@@ -63,8 +43,8 @@ def user(request):
 		except:
 			return JsonResponse ({'status':'FAIL', 'error':'function execution went wrong'})
 	else:
-		return JsonResponse({'status':'FAIL', 'error':'you didn\'t use POST or didn\'t pass validation'})
-
+		#return JsonResponse({'status':'FAIL', 'error':'you didn\'t use POST or didn\'t pass validation'})
+		return JsonResponse({'status':userapi.authenticate(request).content})
 @csrf_exempt
 def game(request):
 	if request.method=='POST' and request.POST.get('password')==os.environ.get('apiPassword'):
