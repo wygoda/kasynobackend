@@ -14,7 +14,7 @@ def user(request):
 	# return out
 	jsonObj = userapi.authenticate(request)
 	parsedJson = json.loads(jsonObj.content)
-	return JsonResponse({'status':parsedJson['status'})
+	return JsonResponse({'status':parsedJson['status']})
 	#if request.method=='POST':
 	#	try:
 	#		function = request.POST.get('function')
