@@ -13,9 +13,8 @@ def user(request):
 	# out = HttpResponse()
 	# out.write('<b>ok user</b>')
 	# return out
-	jsonDictionry = json.loads(userapi.authenticate(request).content.decode("utf-8"))
-
-	if request.method=='POST' and jsonDictionry['status']:
+	jsonDictionry = json.loads(userapi.authenticate(request).content.decode())
+	if request.method=='POST' and jsonDictionry['status']=="OK":
 		try:
 			function = request.POST.get('function')
 			if function==None:
@@ -47,7 +46,7 @@ def user(request):
 		
 @csrf_exempt
 def game(request):
-	if request.method=='POST' and request.POST.get('password')==os.environ.get('apiPassword'):
+	if request.method=='POST':
 		try:
 			function = request.POST.get('function')
 			if function==None:
@@ -76,7 +75,8 @@ def game(request):
 		
 @csrf_exempt
 def check(request):
-	if request.method=='POST' and request.POST.get('password')==os.environ.get('apiPassword'):
+	jsonDictionry = json.loads(userapi.authenticate(request).content.decode())
+	if request.method=='POST' and jsonDictionry['status']=='OK':
 		function = request.POST.get('function')
 		if function==None:
 			return JsonResponse ({'status':'FAIL','error':'specify a function'})
