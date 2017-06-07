@@ -13,8 +13,8 @@ def user(request):
 	# out.write('<b>ok user</b>')
 	# return out
 	jsonObj = userapi.authenticate(request)
-	return JsonResponse ({'jsonObj':jsonObj.content})
-	
+	parsedJson = json.loads(jsonObj.content)
+	return JsonResponse({'status':parsedJson['status'})
 	#if request.method=='POST':
 	#	try:
 	#		function = request.POST.get('function')
