@@ -13,7 +13,7 @@ def user(request):
 	# out.write('<b>ok user</b>')
 	# return out
 	jsonObj = userapi.authenticate(request)
-	parsedJson = json.load(jsonObj)
+	parsedJson = json.loads(jsonObj)
 	
 	if request.method=='POST':
 		try:
