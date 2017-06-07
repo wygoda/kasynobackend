@@ -13,7 +13,7 @@ def user(request):
 	# out = HttpResponse()
 	# out.write('<b>ok user</b>')
 	# return out
-	jsonDictionry = json.loads(userapi.authenticate(request).decode("utf-8"))
+	jsonDictionry = json.loads(userapi.authenticate(request).content.decode("utf-8"))
 
 	if request.method=='POST' and jsonDictionry['status']:
 		try:
