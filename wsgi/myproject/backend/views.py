@@ -5,6 +5,7 @@ from .APIs import userapi
 from .APIs import games
 from .APIs import checkapi
 import os
+import json
 
 @csrf_exempt #these views must accept post requests from external frontends done by the rest of the team, our own validation is required to prevent from csrf attacks
 def user(request):
