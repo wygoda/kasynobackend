@@ -44,7 +44,7 @@ def user(request):
 			return JsonResponse ({'status':'FAIL', 'error':'function execution went wrong'})
 	else:
 		#return JsonResponse({'status':'FAIL', 'error':'you didn\'t use POST or didn\'t pass validation'})
-		return JsonResponse({'status':userapi.authenticate(request).content})
+		return JsonResponse({'status':type(userapi.authenticate(request).content)})
 @csrf_exempt
 def game(request):
 	if request.method=='POST' and request.POST.get('password')==os.environ.get('apiPassword'):
