@@ -11,8 +11,10 @@ def user(request):
     # out = HttpResponse()
     # out.write('<b>ok user</b>')
     # return out
-	return JsonResponse({"userapi.authenticate(request).get('status')":userapi.authenticate(request).get('status')})
-    if request.method=='POST' and userapi.authenticate(request).get('status')=='OK':
+	jsonObject = userapi.authenticate(request)
+	jsonObject = json.load(jsonObject)
+	return JsonResponse({'status':jsonObject[0]['status']})
+    if request.method=='POST':
         try:
             function = request.POST.get('function')
             if function==None:
