@@ -13,13 +13,13 @@ def user(request):
 	# out = HttpResponse()
 	# out.write('<b>ok user</b>')
 	# return out
+	function = request.POST.get('function')
 	if function=='register':
 				return userapi.register(request)
 				
 	jsonDictionry = json.loads(userapi.authenticate(request).content.decode())
 	if request.method=='POST' and jsonDictionry['status']=="OK":
 		try:
-			function = request.POST.get('function')
 			if function==None:
 				return JsonResponse ({'status':'FAIL','error':'specify a function'})
 			if function=='modifyBalance':
