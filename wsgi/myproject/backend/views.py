@@ -7,13 +7,37 @@ from .APIs import checkapi
 import os
 import json
 
+def getId(username):
+    u = User.objects.filter(username=username)
+    if u:
+        return u[0].id
+		
+def authenticate(request):
+    password = request.POST.get('userPassword')
+    username = request.POST.get('username')
+    userId = getId(username)
+    if not userId:
+        userId = request.POST.get('id')
+    try:
+        u = User.objects.get(pk=userId)
+        failed = 1
+        failed = u.authenticate(password)
+        if not failed:
+            return True
+            })
+        return False
+        })
+    except ObjectDoesNotExist:
+        return False
+		
 @csrf_exempt #these views must accept post requests from external frontends done by the rest of the team, our own validation is required to prevent from csrf attacks
 def user(request):
 	# out = HttpResponse()
 	# out.write('<b>ok user</b>')
 	# return out
+	
 
-	if request.method=='POST':
+	if request.method=='POST' and authenticate(request):
 		try:
 			function = request.POST.get('function')
 			if function==None:
