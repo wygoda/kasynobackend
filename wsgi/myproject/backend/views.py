@@ -12,7 +12,7 @@ def user(request):
     # out.write('<b>ok user</b>')
     # return out
 
-    if request.method=='POST' and userapi.authenticate(request).POST.get('status')=='OK':
+    if request.method=='POST' and userapi.authenticate(request).get('status')=='OK':
         try:
             function = request.POST.get('function')
             if function==None:
