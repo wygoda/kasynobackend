@@ -165,37 +165,37 @@ def blackjack(request):
 
 def poker(request):
         # przelicznik dla poszczególnych kombinacji
-        # royal flush (poker królewski) -------------- 4000
-        # straight flush (poker) --------------------- 250
-        # four of a kind (kareta) -------------------- 125
-        # full house (ful) --------------------------- 45
-        # flush (kolor) ------------------------------ 30
-        # straight (strit) --------------------------- 20
-        # three of a kind (trójka) ------------------- 15
-        # two pair (dwie pary) ----------------------- 10
-        # jacks or better (para waletów lub lepsza) -- 5
+        # royal flush (poker królewski) -------------- 250
+        # straight flush (poker) --------------------- 50
+        # four of a kind (kareta) -------------------- 25
+        # full house (ful) --------------------------- 9
+        # flush (kolor) ------------------------------ 6
+        # straight (strit) --------------------------- 4
+        # three of a kind (trójka) ------------------- 3
+        # two pair (dwie pary) ----------------------- 2
+        # jacks or better (para waletów lub lepsza) -- 1
         betamount = float(request.POST.get('betamount'))
         counter = float(request.POST.get('counter'))
         playerCards = makeArrayOfIntsFromString(request,'cards')
         playerScore = pokerScore(playerCards)
         if playerScore == "royal flush":
-                betamount = counter * betamount * 4000
-        elif playerScore == "straight flush":
                 betamount = counter * betamount * 250
+        elif playerScore == "straight flush":
+                betamount = counter * betamount * 50
         elif playerScore == "four of a kind":
-                betamount = counter * betamount * 125
+                betamount = counter * betamount * 25
         elif playerScore == "full house":
-                betamount = counter * betamount * 45
+                betamount = counter * betamount * 9
         elif playerScore == "flush":
-                betamount = counter * betamount * 30
+                betamount = counter * betamount * 6
         elif playerScore == "straight":
-                betamount = counter * betamount * 20
+                betamount = counter * betamount * 4
         elif playerScore == "three of a kind":
-                betamount = counter * betamount * 15
+                betamount = counter * betamount * 3
         elif playerScore == "two pair":
-                betamount = counter * betamount * 10
+                betamount = counter * betamount * 2
         elif playerScore == "jacks or better":
-                betamount = counter * betamount * 5
+                betamount = counter * betamount * 1
         else:
                 betamount= -1 * betamount * counter
         callModifyBalance(request,betamount)
